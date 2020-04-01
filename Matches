@@ -1,0 +1,18 @@
+from string import punctuation
+
+first = input("Enter first text: ")
+second = input("Enter second text: ")
+first = first.lower()
+second = second.lower()
+for c in punctuation:
+    first = first.replace(c, "")
+    second = second.replace(c, "")
+
+first_list = first.split()
+second_list = second.split()
+
+final_list = []
+for x in first_list:
+    if x in second_list:
+        final_list.append(x)
+print(final_list)
