@@ -1,0 +1,94 @@
+from bs4 import BeautifulSoup
+import urllib.request as ul
+from docx import Document
+
+business_list = ['business', 'marketing', 'market', 'price', 'management', 'terms', 'product', 'research', 'organisation', 'external', 'operations', 'organisations', 'tools', 'people', 'sales', 'growth', 'quality', 'resources', 'revenue', 'account', 'value', 'process', 'level', 'stakeholders', 'structure', 'company', 'accounts', 'development', 'personal', 'corporate', 'functions', 'products', 'activity', 'demand', 'share', 'services', 'communication', 'period', 'example', 'total', 'decision', 'companies', 'service', 'working', 'businesses', 'amount', 'number', 'scale', 'means', 'needs', 'customers', 'competition', 'brand', 'image', 'strategies', 'consumer', 'based', 'policy', 'increase', 'could', 'industry', 'manufacture', 'assets', 'social', 'sector', 'strategy', 'markets', 'information', 'benefits', 'selling', 'decisions', 'performance', 'training', 'customer', 'purchase', 'person', 'rates', 'examples', 'strategic', 'determine', 'matrix', 'focus', 'goals', 'individual', 'potential', 'managers', 'important', 'achieve', 'influence', 'impact', 'definition', 'employees', 'knowledge', 'economies', 'skills', 'buying', 'competitive', 'specific', 'ability', 'provide', 'activities', 'improve', 'productivity', 'action', 'power', 'capital', 'related', 'target', 'critical', 'stage', 'opportunities', 'section', 'system', 'review', 'effective', 'stock', 'technology', 'relationship', 'plans', 'opportunity', 'leader', 'niche', 'success', 'stages', 'manager', 'venture', 'trends', 'media', 'state', 'negotiation', 'network', 'successful', 'teams', 'offer', 'generate', 'contract', 'systems', 'manage', 'relevant', 'published', 'criteria', 'sellers', 'offers', 'seller', 'campaigns', 'economy', 'buyers', 'everyone', 'medium', 'valuable', 'model', 'enterprise', 'partnerships', 'buyer', 'compensation', 'partners', 'leaders', 'build', 'commission', 'engage', 'clients', 'partner', 'quota', 'focused', 'modern', 'career', 'executive', 'qualified', 'tactics', 'supplier', 'investors', 'entrepreneurs', 'financing', 'commercial', 'finances', 'entrepreneurial', 'entrepreneur', 'reports', 'interview', 'ansoff']
+
+# URL to scrape text from
+url = input("Enter URL: ")
+html = ul.urlopen(url).read()
+
+soup = BeautifulSoup(html, 'lxml')
+# HTML page title
+title = soup.title
+title = str(title).replace("<title>", "")
+title = str(title).replace("</title>", "")
+
+for script in soup(["script", "style"]):
+    script.decompose()
+strips = list(soup.stripped_strings)
+# Joining list to form single text
+text = " ".join(strips)
+text = text.lower()
+# Replacing substitutes of '.'
+for i in range(len(text)):
+    if text[i] in "?!":
+        text = text.replace(text[i], ".")
+# Splitting text by sentences
+sentences = text.split(".")
+
+"""
+*SINGLE WORD SEARCH*
+# Word to search for in the text
+word_search = input("Enter word: ")
+word_search = word_search.lower()
+sentences_with_word = []
+for x in sentences:
+               if x.count(word_search)>0:
+                          sentences_with_word.append(x)
+# Separating sentences into separate lines
+sentence_text = "\n\n".join(sentences_with_word)
+print(sentence_text)
+"""
+sentences_with_word = []
+for sentence in sentences:
+  for word in business_list:
+    if word in sentence:
+        sentences_with_word.append(sentence)
+        break
+sentences_text = ". \n\n".join(sentences_with_word)
+
+# Word document
+dc = Document()
+
+question = input("Original webpage title?(yes/no): ")
+question = question.lower()
+if question == "yes":
+    dc.add_heading(title, 0)
+else:
+    doc_title = input("Enter title: ")
+    dc.add_heading(doc_title, 0)
+
+section = dc.sections[0]
+header = section.header
+
+paragraph = header.paragraphs[0]
+name = input("Enter header: ")
+paragraph.text = name
+
+dc.add_paragraph(sentences_text)
+
+file_name = input("Enter file name(add .docx): ")
+dc.save(file_name)
+
+
+
+"""
+*PRINTS KEY WORDS FOUND FOR EACH SENTENCE IN ONLINE TEXT*
+def count_keywords(sentences, business_list):
+    words_in_sentences = []
+    for sentence in sentences :
+        found_words = []
+        for keyword in business_list:
+            if sentence.count(keyword):
+                found_words.append(keyword)
+        words_in_sentences.append(found_words)
+    return words_in_sentences
+
+res = count_keywords(sentences, business_list)
+
+for i,found_keywords in enumerate(res,1):
+    if found_keywords:
+        print('>>> sentence',i, 'contains keywords',found_keywords)
+
+"""
