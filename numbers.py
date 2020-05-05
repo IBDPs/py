@@ -166,33 +166,33 @@ plt.show()
  
  
  
-Subtraction of two cubes == num
-Sum of two cubes == num
-Prime factors 
-Plots
-Composite or prime
-Palindromes
-Fourier transform individual frequency
-Modular Arithmetic %
-Modular functions
-Binary
-Hexadecimal
-Roman Numerals
+# Subtraction of two cubes == num
+# Sum of two cubes == num
+# Prime factors 
+# Plots
+# Composite or prime
+# Palindromes
+# Fourier transform individual frequency
+# Modular Arithmetic %
+# Modular functions
+# Binary
+# Hexadecimal
+# Roman Numerals
 
 
 
-Cubic and quadratic functions differentiation
-1, 16, 81, 256, 625, 1296
-15, 65, 175, 369, 671
-50, 110, 194, 302
-60, 84, 108
-24, 24
+# Cubic and quadratic functions differentiation
+# 1, 16, 81, 256, 625, 1296
+# 15, 65, 175, 369, 671
+# 50, 110, 194, 302
+# 60, 84, 108
+# 24, 24
 
-1, 8, 27, 64, 125
-7, 19, 37, 61
-6, 12, 18, 24
-6, 6, 6,
+# 1, 8, 27, 64, 125
+# 7, 19, 37, 61
+# 6, 12, 18, 24
+# 6, 6, 6,
 
-1, 4, 9, 16, 25, 36
-3, 5, 7, 9
-2, 2, 2,
+# 1, 4, 9, 16, 25, 36
+# 3, 5, 7, 9
+# 2, 2, 2,
